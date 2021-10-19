@@ -1,0 +1,13 @@
+.header {
+    grid-area: h;
+    background-color: dodgerblue;
+}
+.header img {
+    width: 60px;
+}
+
+.logoText {
+    font-family: "Showcard Gothic";
+    font-size: 40px;
+    margin: 5%;
+}

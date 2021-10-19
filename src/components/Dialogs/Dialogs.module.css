@@ -1,0 +1,30 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems {
+    padding: 10px;
+    margin: 5px;
+}
+
+.dialog {
+    padding: 5px;
+    font-size: 18px;
+    font-family: "Century Gothic";
+}
+
+.dialogsItems .active {
+    color: gold;
+}
+
+.messages {
+    color: black;
+    margin: 15px;
+}
+
+.message {
+    padding: 5px;
+    font-size: 18px;
+    font-family: "Century Gothic";
+}
