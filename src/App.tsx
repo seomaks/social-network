@@ -18,9 +18,9 @@ type PropsType = {
   posts: PostType[]
   dialogs: DialogsType[]
   messages: MessageType[]
- // addPost: (postText: string) => void
+  newMessageBody: string
   messageForNewPost: string
-  dispatch:(action: ActionsTypes)=>void
+  dispatch: (action: ActionsTypes) => void
 }
 
 const App = (props: PropsType) => {
@@ -32,7 +32,7 @@ const App = (props: PropsType) => {
         <div className='app-wrapper-content'>
           <Route path='/profile' render={() => (
             <Profile posts={props.posts}
-              dispatch={props.dispatch}
+                     dispatch={props.dispatch}
                      messageForNewPost={props.messageForNewPost}
             />
           )}/>
@@ -40,6 +40,8 @@ const App = (props: PropsType) => {
             <Dialogs
               dialogs={props.dialogs}
               messages={props.messages}
+              dispatch={props.dispatch}
+              newMessageBody={props.newMessageBody}
             />
           )}/>
           <Route path='/news' component={News}/>

@@ -1,6 +1,11 @@
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+
 type DialogsPageType = {
   dialogs: DialogsType[]
   messages: MessageType[]
+  //new
+  newMessageBody: string
 }
 
 export type DialogsType = {
@@ -37,7 +42,7 @@ export type StoreType = {
   dispatch: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC>
+export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
 export const addPostAC = (postText: string) => {
   return {
@@ -50,6 +55,19 @@ export const changeNewTextAC = (newText: string) => {
   return {
     type: "CHANGE-NEW-TEXT",
     newText: newText
+  } as const
+}
+
+export const sendMessageAC = () => {
+  return {
+    type: SEND_MESSAGE,
+  } as const
+}
+
+export const updateNewMessageBodyAC = (body: string) => {
+  return {
+    type: UPDATE_NEW_POST_TEXT,
+    body: body
   } as const
 }
 
@@ -79,7 +97,9 @@ export const store: StoreType = {
         {id: 4, message: 'Where are you?'},
         {id: 5, message: 'Relax'},
         {id: 6, message: 'Yep'}
-      ]
+      ],
+      //new
+      newMessageBody: ""
     }
   },
   _renderTree (state:StateType) {
@@ -103,6 +123,14 @@ export const store: StoreType = {
       this._renderTree(this._state);
     } else if (action.type === "CHANGE-NEW-TEXT") {
       this._state.profilePage.messageForNewPost = action.newText;
+      this._renderTree(this._state);
+    } else if (action.type === UPDATE_NEW_POST_TEXT) {
+      this._state.dialogsPage.newMessageBody = action.body;
+      this._renderTree(this._state);
+    } else if (action.type === SEND_MESSAGE) {
+      let body = this._state.dialogsPage.newMessageBody;
+      this._state.dialogsPage.newMessageBody = "";
+      this._state.dialogsPage.messages.push({id: 6, message: body});
       this._renderTree(this._state);
     }
   }

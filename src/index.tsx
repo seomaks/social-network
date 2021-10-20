@@ -7,6 +7,7 @@ const renderTree = (state: StateType) => {
   ReactDOM.render(<App posts={store._state.profilePage.posts}
                        dialogs={store._state.dialogsPage.dialogs}
                        messages={store._state.dialogsPage.messages}
+                       newMessageBody={store._state.dialogsPage.newMessageBody}
                        messageForNewPost={store._state.profilePage.messageForNewPost}
                        dispatch={store.dispatch.bind(store)}
   />, document.getElementById('root'));
