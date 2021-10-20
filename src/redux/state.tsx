@@ -16,7 +16,6 @@ export type MessageType = {
 export type MyPostsPageType = {
   posts: PostType[]
   messageForNewPost: string
-  addPost: (text: string) => void
 }
 
 export type PostType = {
@@ -32,12 +31,23 @@ export type StateType = {
 
 export type StoreType = {
   _state: StateType
-  changeNewText: (newText: string) => void
-  addPost: (postText: string) => void
   _renderTree: (state:StateType) => void
   subscribe: (observer: (state:StateType) => void) => void
   getState: () => StateType
+  dispatch: (action: ActionsTypes) => void
 }
+
+type AddPostActionType ={
+  type: "ADD-POST"
+  postText: string
+}
+
+type ChangeNewTextActionType = {
+  type: "CHANGE-NEW-TEXT"
+  newText: string
+}
+
+export type ActionsTypes = AddPostActionType | ChangeNewTextActionType
 
 export const store: StoreType = {
   _state: {
@@ -48,7 +58,6 @@ export const store: StoreType = {
         {id: 1, message: 'Hi, how are you?', likesCount: 12},
         {id: 2, message: 'It\'s my first post', likesCount: 11},
       ],
-      addPost: postMessage
     },
     dialogsPage: {
       dialogs: [
@@ -69,20 +78,6 @@ export const store: StoreType = {
       ]
     }
   },
-  changeNewText(newText: string) {
-    this._state.profilePage.messageForNewPost = newText;
-    this._renderTree(this._state);
-  },
-  addPost(postText: string) {
-    const newPost: PostType = {
-      id: new Date().getTime(),
-      message: postText,
-      likesCount: 0
-    }
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.messageForNewPost = ""
-    this._renderTree(this._state);
-  },
   _renderTree (state:StateType) {
     console.log("state changed")
   },
@@ -91,6 +86,21 @@ export const store: StoreType = {
   },
   getState () {
     return this._state;
+  },
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      const newPost: PostType = {
+        id: new Date().getTime(),
+        message: action.postText,
+        likesCount: 0
+      }
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.messageForNewPost = ""
+      this._renderTree(this._state);
+    } else if (action.type === "CHANGE-NEW-TEXT") {
+      this._state.profilePage.messageForNewPost = action.newText;
+      this._renderTree(this._state);
+    }
   }
 }
 

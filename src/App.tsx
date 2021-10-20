@@ -8,6 +8,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {
+  ActionsTypes,
   DialogsType,
   MessageType,
   PostType,
@@ -17,8 +18,9 @@ type PropsType = {
   posts: PostType[]
   dialogs: DialogsType[]
   messages: MessageType[]
-  addPost: (postText: string) => void
+ // addPost: (postText: string) => void
   messageForNewPost: string
+  dispatch:(action: ActionsTypes)=>void
 }
 
 const App = (props: PropsType) => {
@@ -30,7 +32,7 @@ const App = (props: PropsType) => {
         <div className='app-wrapper-content'>
           <Route path='/profile' render={() => (
             <Profile posts={props.posts}
-                     addPost={props.addPost}
+              dispatch={props.dispatch}
                      messageForNewPost={props.messageForNewPost}
             />
           )}/>
