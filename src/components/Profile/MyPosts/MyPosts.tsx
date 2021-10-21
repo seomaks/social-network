@@ -3,10 +3,9 @@ import classes from './Myposts.module.css'
 import Post from "./Post/Post";
 import {
   ActionsTypes,
-  addPostAC,
-  changeNewTextAC,
   PostType
 } from "../../../redux/state";
+import {addPostAC, changeNewTextAC} from "../../../redux/profileReducer";
 
 type propsType = {
   messageForNewPost: string

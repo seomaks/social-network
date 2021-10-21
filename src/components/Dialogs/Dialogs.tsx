@@ -4,10 +4,12 @@ import Message from "./Message/Message";
 import {
   ActionsTypes,
   DialogsType,
-  MessageType, sendMessageAC,
-  updateNewMessageBodyAC
+  MessageType
 } from "../../redux/state";
 import {ChangeEvent} from "react";
+import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogsReducer";
+
+
 
 type PropsType = {
   dialogs: DialogsType[]

@@ -1,10 +1,12 @@
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import profileReducer, {addPostAC, changeNewTextAC} from "./profileReducer";
+import dialogsReducer, {
+  sendMessageAC,
+  updateNewMessageBodyAC
+} from "./dialogsReducer";
 
 type DialogsPageType = {
   dialogs: DialogsType[]
   messages: MessageType[]
-  //new
   newMessageBody: string
 }
 
@@ -44,33 +46,6 @@ export type StoreType = {
 
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
-export const addPostAC = (postText: string) => {
-  return {
-    type: "ADD-POST",
-    postText: postText
-  } as const
-}
-
-export const changeNewTextAC = (newText: string) => {
-  return {
-    type: "CHANGE-NEW-TEXT",
-    newText: newText
-  } as const
-}
-
-export const sendMessageAC = () => {
-  return {
-    type: SEND_MESSAGE,
-  } as const
-}
-
-export const updateNewMessageBodyAC = (body: string) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    body: body
-  } as const
-}
-
 export const store: StoreType = {
   _state: {
 
@@ -98,7 +73,6 @@ export const store: StoreType = {
         {id: 5, message: 'Relax'},
         {id: 6, message: 'Yep'}
       ],
-      //new
       newMessageBody: ""
     }
   },
@@ -112,27 +86,10 @@ export const store: StoreType = {
     return this._state;
   },
   dispatch(action) {
-    if (action.type === "ADD-POST") {
-      const newPost: PostType = {
-        id: new Date().getTime(),
-        message: action.postText,
-        likesCount: 0
-      }
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.messageForNewPost = ""
-      this._renderTree(this._state);
-    } else if (action.type === "CHANGE-NEW-TEXT") {
-      this._state.profilePage.messageForNewPost = action.newText;
-      this._renderTree(this._state);
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.dialogsPage.newMessageBody = action.body;
-      this._renderTree(this._state);
-    } else if (action.type === SEND_MESSAGE) {
-      let body = this._state.dialogsPage.newMessageBody;
-      this._state.dialogsPage.newMessageBody = "";
-      this._state.dialogsPage.messages.push({id: 6, message: body});
-      this._renderTree(this._state);
-    }
+
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._renderTree(this._state);
   }
 }
 
