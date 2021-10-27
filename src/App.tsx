@@ -3,25 +3,17 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
-import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {
-  ActionsTypes,
-  DialogsType,
-  MessageType,
-  PostType,
+  ActionsTypes
 } from "./redux/store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type PropsType = {
-  posts: PostType[]
-  dialogs: DialogsType[]
-  messages: MessageType[]
-  newMessageBody: string
-  messageForNewPost: string
   dispatch: (action: ActionsTypes) => void
-  store?: any
+  store: any
 }
 
 const App = (props: PropsType) => {
@@ -32,17 +24,14 @@ const App = (props: PropsType) => {
         <Navbar/>
         <div className='app-wrapper-content'>
           <Route path='/profile' render={() => (
-            <Profile posts={props.posts}
-                     dispatch={props.dispatch}
-                     messageForNewPost={props.messageForNewPost}
+            <Profile dispatch={props.dispatch}
+                     store={props.store}
             />
           )}/>
           <Route path='/dialogs' render={() => (
-            <Dialogs
-              dialogs={props.dialogs}
-              messages={props.messages}
+            <DialogsContainer
+              store={props.store}
               dispatch={props.dispatch}
-              newMessageBody={props.newMessageBody}
             />
           )}/>
           <Route path='/news' component={News}/>

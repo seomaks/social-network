@@ -2,15 +2,11 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {StateType} from './redux/store'
-import {store} from './redux/redux-store'
+ import {store} from './redux/redux-store'
 
 const renderTree = (state: StateType) => {
-  ReactDOM.render(<App posts={store.getState().profilePage.posts}
-                       dialogs={store.getState().dialogsPage.dialogs}
-                       messages={store.getState().dialogsPage.messages}
-                       newMessageBody={store.getState().dialogsPage.newMessageBody}
-                       messageForNewPost={store.getState().profilePage.messageForNewPost}
-                       dispatch={store.dispatch.bind(store)}
+  ReactDOM.render(<App dispatch={store.dispatch.bind(store)}
+                       store={store}
   />, document.getElementById('root'));
 }
 
