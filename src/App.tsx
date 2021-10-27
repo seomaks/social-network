@@ -12,7 +12,7 @@ import {
   DialogsType,
   MessageType,
   PostType,
-} from "./redux/state";
+} from "./redux/store";
 
 type PropsType = {
   posts: PostType[]
@@ -21,6 +21,7 @@ type PropsType = {
   newMessageBody: string
   messageForNewPost: string
   dispatch: (action: ActionsTypes) => void
+  store?: any
 }
 
 const App = (props: PropsType) => {

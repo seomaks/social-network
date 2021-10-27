@@ -1,21 +1,25 @@
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {StateType, store} from './redux/state'
+import {StateType} from './redux/store'
+import {store} from './redux/redux-store'
 
 const renderTree = (state: StateType) => {
-  ReactDOM.render(<App posts={store._state.profilePage.posts}
-                       dialogs={store._state.dialogsPage.dialogs}
-                       messages={store._state.dialogsPage.messages}
-                       newMessageBody={store._state.dialogsPage.newMessageBody}
-                       messageForNewPost={store._state.profilePage.messageForNewPost}
+  ReactDOM.render(<App posts={store.getState().profilePage.posts}
+                       dialogs={store.getState().dialogsPage.dialogs}
+                       messages={store.getState().dialogsPage.messages}
+                       newMessageBody={store.getState().dialogsPage.newMessageBody}
+                       messageForNewPost={store.getState().profilePage.messageForNewPost}
                        dispatch={store.dispatch.bind(store)}
   />, document.getElementById('root'));
 }
 
+renderTree(store.getState())
 
-store.subscribe(renderTree)
-renderTree(store._state)
+store.subscribe(() => {
+  let state = store.getState();
+  renderTree(state)
+})
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

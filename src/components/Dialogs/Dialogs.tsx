@@ -5,7 +5,7 @@ import {
   ActionsTypes,
   DialogsType,
   MessageType
-} from "../../redux/state";
+} from "../../redux/store";
 import {ChangeEvent} from "react";
 import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogsReducer";
 
