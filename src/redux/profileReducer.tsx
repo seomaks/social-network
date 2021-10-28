@@ -1,4 +1,4 @@
-import {PostType} from "./store";
+import {ActionsTypes, PostType} from "./store";
 
 let initialState = {
   messageForNewPost: "",
@@ -8,7 +8,7 @@ let initialState = {
   ],
 }
 
-const profileReducer =(state = initialState, action: any) => {
+const profileReducer =(state = initialState, action: ActionsTypes) => {
 
   switch (action.type) {
     case "ADD-POST":

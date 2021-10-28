@@ -32,6 +32,7 @@ const App = (props: PropsType) => {
             <DialogsContainer
               store={props.store}
               dispatch={props.dispatch}
+              dialogsPage={props.store.getState().dialogsPage}
             />
           )}/>
           <Route path='/news' component={News}/>

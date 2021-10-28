@@ -1,15 +1,16 @@
-import {ActionsTypes} from "../../redux/store";
+import {ActionsTypes, DialogsType, StoreType} from "../../redux/store";
 import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 
 type PropsType = {
-  store: any
+  store: StoreType
   dispatch: (action: ActionsTypes) => void
+  dialogsPage: DialogsType
 }
 
 const DialogsContainer = (props: PropsType) => {
 
-  const state = props.store.getState().dialogsPage
+ // const state = props.store.getState().dialogsPage
 
 
   const onSendMessageClick = () => {
@@ -22,7 +23,7 @@ props.dispatch(sendMessageAC())
 
   return <Dialogs updateNewMessageBody={onNewMessageChange}
                   sendMessage={onSendMessageClick}
-                  dialogsPage={state}
+                  dialogsPage={props.dialogsPage}
   />
 }
 
