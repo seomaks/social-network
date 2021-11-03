@@ -1,17 +1,12 @@
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsType} from "../../redux/store";
 import {ChangeEvent} from "react";
 import {store} from "../../redux/redux-store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type PropsType = {
-  sendMessage: ()=> void
-  updateNewMessageBody: (body:string)=> void
-  dialogsPage: DialogsType
-}
 
-const Dialogs = (props: PropsType) => {
+const Dialogs = (props: DialogsPropsType) => {
   const state = store.getState().dialogsPage
 
   let dialogsElements = state.dialogs.map(dialog => <DialogItem
@@ -28,7 +23,6 @@ const Dialogs = (props: PropsType) => {
     let body = e.target.value;
     props.updateNewMessageBody(body)
   }
-
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogsItems}>

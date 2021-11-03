@@ -4,7 +4,7 @@ import dialogsReducer, {
   updateNewMessageBodyAC
 } from "./dialogsReducer";
 
-type DialogsPageType = {
+export type DialogsPageType = {
   dialogs: DialogsType[]
   messages: MessageType[]
   newMessageBody: string
@@ -15,7 +15,7 @@ export type DialogsType = {
   name: string
 }
 
-export type MessageType = {
+type MessageType = {
   id: number
   message: string
 }
@@ -25,18 +25,18 @@ export type MyPostsPageType = {
   messageForNewPost: string
 }
 
-export type PostType = {
+type PostType = {
   id: number
   message: string
   likesCount: number
 }
 
-export type StateType = {
+type StateType = {
   profilePage: MyPostsPageType
   dialogsPage: DialogsPageType
 }
 
-export type StoreType = {
+type StoreType = {
   _state: StateType
   _renderTree: (state:StateType) => void
   subscribe: (observer: (state:StateType) => void) => void
@@ -46,7 +46,7 @@ export type StoreType = {
 
 export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
-export const store: StoreType = {
+const store: StoreType = {
   _state: {
 
     profilePage: {

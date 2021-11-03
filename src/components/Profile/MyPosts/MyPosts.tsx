@@ -1,22 +1,17 @@
 import React, {ChangeEvent} from "react";
 import classes from './Myposts.module.css'
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/store";
+import {PostsPropsType} from "./MyPostsContainer";
 
-type propsType = {
-  messageForNewPost: string
-  posts: PostType[]
-  addPost: ()=>void
-  changeNewText:(text:string)=>void
-}
 
-const MyPosts = (props: propsType) => {
-  const postsElements = props.posts.map((p) => <Post
+const MyPosts = (props: PostsPropsType) => {
+  const postsElements = props.profilePage.posts.map(p => <Post
     likesCount={p.likesCount}
     message={p.message}/>)
 
+
   const addPost = () => {
-    props.addPost();
+    props.addPost(props.profilePage.messageForNewPost);
   }
 
   const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,7 +24,7 @@ const MyPosts = (props: propsType) => {
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea value={props.messageForNewPost}
+          <textarea value={props.profilePage.messageForNewPost}
                     onChange={newTextChangeHandler}>
           </textarea>
         </div>

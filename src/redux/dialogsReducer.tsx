@@ -1,6 +1,17 @@
+import {ActionsTypes} from "./store";
 
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SEND_MESSAGE = 'SEND-MESSAGE';
+
+export type DialogsType = {
+  id: number
+  name: string
+}
+
+export type MessageType = {
+  id: number
+  message: string
+}
 
 let initialState = {
   dialogs: [
@@ -10,7 +21,7 @@ let initialState = {
     {id: 4, name: 'Olya'},
     {id: 5, name: 'Natasha'},
     {id: 6, name: 'Sergey'}
-  ],
+  ] as Array<DialogsType>,
   messages: [
     {id: 1, message: 'Hi'},
     {id: 2, message: 'How are you?'},
@@ -18,25 +29,31 @@ let initialState = {
     {id: 4, message: 'Where are you?'},
     {id: 5, message: 'Relax'},
     {id: 6, message: 'Yep'}
-  ],
+  ] as Array<MessageType>,
   newMessageBody: ""
 }
 
-const dialogsReducer = (state = initialState, action: any) => {
+export type InitialStateType = typeof initialState
+
+export const dialogsReducer = (state:InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 
   switch (action.type) {
-    case UPDATE_NEW_POST_TEXT:
-      state.newMessageBody = action.body;
-      break;
-    case SEND_MESSAGE:
+    case UPDATE_NEW_POST_TEXT: {
+      const stateCopy = {...state};
+      stateCopy.newMessageBody = action.body;
+      return stateCopy;
+    }
+    case SEND_MESSAGE: {
+      const stateCopy = {...state};
       let body = state.newMessageBody;
-      state.newMessageBody = "";
-      state.messages.push({id: 6, message: body});
-      break;
+      stateCopy.newMessageBody = "";
+      stateCopy.messages.push({id: 6, message: body});
+      return stateCopy;
+    }
     default:
       return state;
   }
-  return state
+ // return state
 }
 
 export const sendMessageAC = () => {
