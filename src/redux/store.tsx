@@ -3,6 +3,7 @@ import dialogsReducer, {
   sendMessageAC,
   updateNewMessageBodyAC
 } from "./dialogsReducer";
+import {followAC, setUserAC, unfollowAC} from "./usersReducer";
 
 export type DialogsPageType = {
   dialogs: DialogsType[]
@@ -44,7 +45,11 @@ type StoreType = {
   dispatch: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewTextAC> | ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
+export type ActionsTypes =
+    ReturnType<typeof addPostAC>
+  | ReturnType<typeof changeNewTextAC>
+  | ReturnType<typeof sendMessageAC>
+  | ReturnType<typeof updateNewMessageBodyAC>
 
 const store: StoreType = {
   _state: {

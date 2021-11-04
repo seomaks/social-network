@@ -7,7 +7,9 @@ import {PostsPropsType} from "./MyPostsContainer";
 const MyPosts = (props: PostsPropsType) => {
   const postsElements = props.profilePage.posts.map(p => <Post
     likesCount={p.likesCount}
-    message={p.message}/>)
+    message={p.message}
+    key={p.id}
+  />)
 
 
   const addPost = () => {

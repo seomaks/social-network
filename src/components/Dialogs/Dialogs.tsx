@@ -10,9 +10,9 @@ const Dialogs = (props: DialogsPropsType) => {
   const state = store.getState().dialogsPage
 
   let dialogsElements = state.dialogs.map(dialog => <DialogItem
-    id={dialog.id} name={dialog.name}/>)
+    id={dialog.id} name={dialog.name} key={dialog.id}/>)
   let messagesElements = state.messages.map(message => <Message
-    id={message.id} message={message.message}/>)
+    id={message.id} message={message.message} key={message.id}/>)
   let newMessageBody = state.newMessageBody;
 
   const onSendMessageClick = () => {
