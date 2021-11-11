@@ -1,45 +1,67 @@
 import React from "react";
 import classes from './Users.module.css'
+import axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 import {UsersPropsType} from "./UsersContainer";
+
+class Users extends React.Component<UsersPropsType> {
+
+  constructor(props: UsersPropsType) {
+    super(props);
+      axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+        this.props.setUsers(response.data.items)
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.usersPage.users.map(u => <div key={u.id}>
+      <span>
+        <div>
+        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={classes.userPhoto} alt={'user'}/>
+      </div>
+      <div>
+        {u.followed
+          ? <button onClick={() => {this.props.unfollow(u.id)}}>Unfollow</button>
+          : <button onClick={() => {this.props.follow(u.id)}}>Follow</button>}
+
+      </div></span>
+          <span>
+<span>
+  <div>{u.name}</div>
+  <div>{u.status}</div>
+</span>
+<span>
+  <div>{"u.location.country"}</div><div>{"u.location.city"}</div>
+</span>
+      </span>
+        </div>)}
+
+      </div>
+    )
+  }
+}
+
+export default Users;
+
+
+
+/*
+import React from "react";
+import classes from './Users.module.css'
+import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 
 
 const Users = (props: UsersPropsType) => {
   if (props.usersPage.users.length === 0) {
-    props.setUsers(
-      [
-        {
-          id: 1,
-          photoUrl: 'https://w1.pngwing.com/pngs/795/806/png-transparent-turtle-drawing-teenage-mutant-ninja-turtles-leonardo-shuriken-green-frog-smile-headgear.png',
-          followed: true,
-          fullName: 'Maks',
-          status: 'I have a high quality links',
-          location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-          id: 2,
-          photoUrl: 'https://w1.pngwing.com/pngs/795/806/png-transparent-turtle-drawing-teenage-mutant-ninja-turtles-leonardo-shuriken-green-frog-smile-headgear.png',
-          followed: false,
-          fullName: 'Georg',
-          status: 'Do you need a backlinks',
-          location: {city: 'Murmansk', country: 'Russia'}
-        },
-        {
-          id: 3,
-          photoUrl: 'https://w1.pngwing.com/pngs/795/806/png-transparent-turtle-drawing-teenage-mutant-ninja-turtles-leonardo-shuriken-green-frog-smile-headgear.png',
-          followed: true,
-          fullName: 'Nik',
-          status: 'Can you hear me?',
-          location: {city: 'Pskov', country: 'Russia'}
-        },
-        {
-          id: 4,
-          photoUrl: 'https://w1.pngwing.com/pngs/795/806/png-transparent-turtle-drawing-teenage-mutant-ninja-turtles-leonardo-shuriken-green-frog-smile-headgear.png',
-          followed: false,
-          fullName: 'Olya',
-          status: 'Hi, how are you?',
-          location: {city: 'Vitebsk', country: 'Belarus'}
-        }]
-    )
+
+    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+      props.setUsers(response.data.items)
+    });
+
   }
 
   return (
@@ -47,7 +69,7 @@ const Users = (props: UsersPropsType) => {
       {props.usersPage.users.map(u => <div key={u.id}>
       <span>
         <div>
-        <img src={u.photoUrl} className={classes.userPhoto} alt={'user'}/>
+        <img src={u.photos.small != null ? u.photos.small : userPhoto} className={classes.userPhoto} alt={'user'}/>
       </div>
       <div>
         {u.followed
@@ -57,11 +79,11 @@ const Users = (props: UsersPropsType) => {
       </div></span>
         <span>
 <span>
-  <div>{u.fullName}</div>
+  <div>{u.name}</div>
   <div>{u.status}</div>
 </span>
 <span>
-  <div>{u.location.country}</div><div>{u.location.city}</div>
+  <div>{"u.location.country"}</div><div>{"u.location.city"}</div>
 </span>
       </span>
       </div>)}
@@ -70,4 +92,4 @@ const Users = (props: UsersPropsType) => {
   )
 }
 
-export default Users;
+export default Users;*/

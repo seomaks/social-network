@@ -1,15 +1,22 @@
+
 type UsersLocation = {
   city: string
   country: string
 }
 
+type PhotosType = {
+  small: string | null
+  large: string | null
+}
+
 export type UserType = {
   id: number
-  photoUrl: string
+  photoUrl?: string
+  photos: PhotosType
   followed: boolean
-  fullName: string
+  name: string
   status: string
-  location: UsersLocation
+  location?: UsersLocation
 }
 
 type ActionTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUserAC>
