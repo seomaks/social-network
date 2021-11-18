@@ -3,7 +3,6 @@ import dialogsReducer, {
   sendMessageAC,
   updateNewMessageBodyAC
 } from "./dialogsReducer";
-import {followAC, setUserAC, unfollowAC} from "./usersReducer";
 
 export type DialogsPageType = {
   dialogs: DialogsType[]
@@ -92,7 +91,7 @@ const store: StoreType = {
   },
   dispatch(action) {
 
-    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    // this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._renderTree(this._state);
   }
