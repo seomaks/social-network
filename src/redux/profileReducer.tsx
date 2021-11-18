@@ -36,7 +36,6 @@ let initialState = {
 }
 
 export type InitialStateType = typeof initialState
-
 export type ActionsTypes =
   ReturnType<typeof addPostAC>
   | ReturnType<typeof changeNewTextAC>
