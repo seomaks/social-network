@@ -13,6 +13,8 @@ type PropsType = {
   users: Array<UserType>
   follow: (userID: number) => void
   unfollow: (userID: number) => void
+  toggleFollowingProgress: (isFetching: boolean, userID: number) => void
+  followingInProgress: number[]
 }
 
 export let Users = (props: PropsType) => {
@@ -47,7 +49,8 @@ export let Users = (props: PropsType) => {
       </div>
       <div>
         {u.followed
-          ? <button onClick={() => {
+          ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+            props.toggleFollowingProgress(true, u.id)
             axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
               withCredentials: true,
               headers: {"API-KEY": "0c074aaa-aceb-492d-a73f-9ca4f6d5a703"}
@@ -56,9 +59,11 @@ export let Users = (props: PropsType) => {
                 if (response.data.resultCode === 0) {
                   props.unfollow(u.id)
                 }
+                props.toggleFollowingProgress(false, u.id)
               });
           }}>Unfollow</button>
-          : <button onClick={() => {
+          : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+            props.toggleFollowingProgress(true, u.id)
             axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
               withCredentials: true,
               headers: {"API-KEY": "0c074aaa-aceb-492d-a73f-9ca4f6d5a703"}
@@ -67,6 +72,7 @@ export let Users = (props: PropsType) => {
                 if (response.data.resultCode === 0) {
                   props.follow(u.id)
                 }
+                props.toggleFollowingProgress(false, u.id)
               });
           }}>Follow</button>}
       </div></span>
