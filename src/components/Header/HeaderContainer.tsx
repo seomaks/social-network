@@ -8,9 +8,9 @@ import {AppStateType} from "../../redux/redux-store";
 
 type MapStatePropsType = {
   isAuth: boolean
-  login: string | null
   id: number | null
   email: string | null
+  login: string | null
 }
 
 type MapDispatchToProps = {
