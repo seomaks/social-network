@@ -11,3 +11,11 @@
     font-size: 40px;
     margin: 5%;
 }
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock a {
+    color: white;
+}
