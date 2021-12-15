@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 export type PostType = {
   id: number
@@ -27,6 +27,7 @@ export type ProfileType = {
   fullName: string
   contacts: ContactsType
   photos: PhotosType
+  status: string
 }
 
 let initialState = {
@@ -35,7 +36,8 @@ let initialState = {
     {id: 2, message: 'It\'s my first post', likesCount: 11},
   ] as Array<PostType>,
   messageForNewPost: "",
-  profile: null as ProfileType | null
+  profile: null as ProfileType | null,
+  status: ""
 }
 
 export type InitialStateType = typeof initialState
@@ -43,6 +45,7 @@ export type ActionsTypes =
   ReturnType<typeof addPostAC>
   | ReturnType<typeof changeNewTextAC>
   | ReturnType<typeof setUserProfile>
+  | ReturnType<typeof setStatus>
 
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -72,6 +75,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         profile: action.profile
       };
     }
+    case "SET_STATUS": {
+      return {
+        ...state,
+        status: action.status
+      };
+    }
     default:
       return state;
   }
@@ -98,10 +107,30 @@ export const setUserProfile = (profile: ProfileType) => {
   } as const
 }
 
+export const setStatus = (status: string) => {
+  return {
+    type: "SET_STATUS",
+    status
+  } as const
+}
+
 export const getUserProfile = (userId: string) => (dispatch: Dispatch<ActionsTypes>) => {
   usersAPI.getProfile(userId).then(response => {
     dispatch(setUserProfile(response.data))
   });
+}
+
+export const getStatus = (userId: string) => (dispatch: Dispatch<ActionsTypes>) => {
+  profileAPI.getStatus(userId).then(response => {
+    dispatch(setStatus(response.data))
+  });
+}
+
+export const updateStatus = (status: string) => (dispatch: Dispatch<ActionsTypes>) => {
+  profileAPI.updateStatus(status).then(response => {
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status))
+    }});
 }
 
 export default profileReducer
