@@ -1,5 +1,5 @@
-import  {addPostAC, changeNewTextAC} from "./profileReducer";
-import dialogsReducer, {
+import  {addPostAC} from "./profileReducer";
+import {
   sendMessageAC,
 } from "./dialogsReducer";
 
@@ -45,7 +45,6 @@ type StoreType = {
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
-  | ReturnType<typeof changeNewTextAC>
   | ReturnType<typeof sendMessageAC>
 
 const store: StoreType = {
