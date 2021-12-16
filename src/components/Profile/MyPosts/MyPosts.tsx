@@ -24,7 +24,7 @@ const MyPosts = (props: PostsPropsType) => {
   return (
     <div className={classes.postsBlock}>
       <h3>My posts</h3>
-      <div>
+      <form>
         <div>
           <textarea value={props.profilePage.messageForNewPost}
                     onChange={newTextChangeHandler}>
@@ -33,7 +33,7 @@ const MyPosts = (props: PostsPropsType) => {
         <div>
           <button onClick={addPost}>Add post</button>
         </div>
-      </div>
+      </form>
       <div className={classes.posts}>
         {postsElements}
       </div>

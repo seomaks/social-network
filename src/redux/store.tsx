@@ -1,7 +1,6 @@
-import profileReducer, {addPostAC, changeNewTextAC} from "./profileReducer";
+import  {addPostAC, changeNewTextAC} from "./profileReducer";
 import dialogsReducer, {
   sendMessageAC,
-  updateNewMessageBodyAC
 } from "./dialogsReducer";
 
 export type DialogsPageType = {
@@ -48,7 +47,6 @@ export type ActionsTypes =
     ReturnType<typeof addPostAC>
   | ReturnType<typeof changeNewTextAC>
   | ReturnType<typeof sendMessageAC>
-  | ReturnType<typeof updateNewMessageBodyAC>
 
 const store: StoreType = {
   _state: {
@@ -92,7 +90,7 @@ const store: StoreType = {
   dispatch(action) {
 
     // this._state.profilePage = profileReducer(this._state.profilePage, action);
-    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._renderTree(this._state);
   }
 }

@@ -1,6 +1,5 @@
 import {ActionsTypes} from "./store";
 
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 export type DialogsType = {
@@ -29,8 +28,7 @@ let initialState = {
     {id: 4, message: 'Where are you?'},
     {id: 5, message: 'Relax'},
     {id: 6, message: 'Yep'}
-  ] as Array<MessageType>,
-  newMessageBody: ""
+  ] as Array<MessageType>
 }
 
 export type InitialStateType = typeof initialState
@@ -38,15 +36,11 @@ export type InitialStateType = typeof initialState
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 
   switch (action.type) {
-    case UPDATE_NEW_POST_TEXT: {
-      return  {...state, newMessageBody: action.body}
-    }
     case SEND_MESSAGE: {
-      let body = state.newMessageBody;
+      let body = action.newMessageBody;
 
       return  {
         ...state,
-        newMessageBody: "",
         messages: [...state.messages, {id: 6, message: body}]
       }
     }
@@ -55,16 +49,9 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
   }
 }
 
-export const sendMessageAC = () => {
+export const sendMessageAC = (newMessageBody: string) => {
   return {
-    type: SEND_MESSAGE,
-  } as const
-}
-
-export const updateNewMessageBodyAC = (body: string) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    body: body
+    type: SEND_MESSAGE, newMessageBody
   } as const
 }
 
