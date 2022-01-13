@@ -1,7 +1,5 @@
 import React from "react";
 import classes from './Navbar.module.css'
-/*import Dialogs from "../Dialogs/Dialogs";
-import Profile from "../Profile/Profile";*/
 import {NavLink} from "react-router-dom";
 
 const Navbar = () => {

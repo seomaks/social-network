@@ -12,8 +12,7 @@ type PropsType = {
 }
 
 const Profile = (props: PropsType) => {
-debugger
-  if (!props.isAuth) return <Redirect to={"/Login"}/>
+  if (!props.isAuth) return <Redirect to={"/login"}/>
   return (
     <div>
       <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>

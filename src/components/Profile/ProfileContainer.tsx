@@ -11,7 +11,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
 type PathParamsType = {
-  userId: string | null
+  userId: string
 }
 
 type MapStateToPropsType = {
@@ -26,16 +26,16 @@ type MapDispatchPropsType = {
   updateStatus: (status: string) => void
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchPropsType
-//@ts-ignore
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
   componentDidMount() {
-    debugger
     let userId = this.props.match.params.userId;
-    if (!userId) {
-      userId = this.props.authorizedUserId!.toString()
-    }
+      if (!userId) {
+   //     userId = this.props.authorizedUserId!.toString()
+        userId = this.props.authorizedUserId!.toString()
+      }
+
     this.props.getUserProfile(userId)
     this.props.getStatus(userId)
   }

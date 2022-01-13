@@ -20,9 +20,7 @@ export type InitialStateType = {
   isAuth: boolean
 }
 
-
 export const authReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
-  debugger
   switch (action.type) {
     case 'SET_USER_DATA':
       return {
@@ -39,18 +37,16 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 };
 
 export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
-  debugger
   return {
     type: 'SET_USER_DATA', payload: {id, email, login, isAuth}
   } as const
 };
 
 export const getAuthUserData = () =>  (dispatch: Dispatch<ActionTypes>) => {
-  authAPI.me()
+  return authAPI.me()
     .then(response => {
       if (response.data.resultCode === 0) {
         let {id, login, email} = response.data.data;
-        debugger
         dispatch(setAuthUserData(id, email, login, true))
       }
     });
@@ -60,7 +56,6 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
 export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async (dispatch) => {
   authAPI.login(email, password, rememberMe)
     .then(response => {
-      debugger
       if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
       } else {
