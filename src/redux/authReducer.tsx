@@ -60,7 +60,8 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
         dispatch(getAuthUserData())
       } else {
         const message = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
-        //dispatch(stopSubmit("login", {_error: message} ))
+        // @ts-ignore
+        dispatch(stopSubmit("login", {_error: message} ))
       }
     });
 }
