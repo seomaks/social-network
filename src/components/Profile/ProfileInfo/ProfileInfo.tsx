@@ -16,11 +16,6 @@ const ProfileInfo = (props: PropsType) => {
   }
   return (
     <div>
- {/*     <div>
-        <img className={classes.proImg}
-             src='https://tambotravel.com/wp-content/uploads/Mancora-Peru.jpg'
-             alt=''/>
-      </div>*/}
       <div className={classes.descriptionBlock}>
         <img src={props.profile.photos.large} alt={""}/>
         <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>

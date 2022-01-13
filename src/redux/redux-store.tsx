@@ -19,3 +19,5 @@ export type AppStateType = ReturnType<typeof rootReducer>;
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
+//@ts-ignore
+window.store = store;

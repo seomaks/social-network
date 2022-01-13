@@ -1,18 +1,8 @@
-/*type setAuthUserDataType = {
-  userId: number,
-  email: string,
-  login: string,
-  isAuth: boolean
-}
-
-export type setAuthUserType = {
-  type: typeof setAuthUserData,
-  data: setAuthUserDataType
-}*/
-
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {AppStateType} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
 
 type ActionTypes = ReturnType<typeof setAuthUserData>
 
@@ -32,11 +22,15 @@ export type InitialStateType = {
 
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
+  debugger
   switch (action.type) {
     case 'SET_USER_DATA':
       return {
         ...state,
-        ...action.payload
+        id: action.payload.id,
+        isAuth: action.payload.isAuth,
+        login: action.payload.login,
+        email: action.payload.email
       };
 
     default:
@@ -45,29 +39,33 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 };
 
 export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
+  debugger
   return {
     type: 'SET_USER_DATA', payload: {id, email, login, isAuth}
   } as const
 };
 
-export const getAuthUserData = () => (dispatch: Dispatch<ActionTypes>) => {
+export const getAuthUserData = () =>  (dispatch: Dispatch<ActionTypes>) => {
   authAPI.me()
     .then(response => {
       if (response.data.resultCode === 0) {
         let {id, login, email} = response.data.data;
+        debugger
         dispatch(setAuthUserData(id, email, login, true))
       }
     });
 }
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch:any) => {
+export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async (dispatch) => {
   authAPI.login(email, password, rememberMe)
     .then(response => {
+      debugger
       if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
       } else {
         const message = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
-        dispatch(stopSubmit("login", {_error: message} ))
+        //dispatch(stopSubmit("login", {_error: message} ))
       }
     });
 }
