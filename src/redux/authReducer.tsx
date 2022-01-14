@@ -1,8 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
-import {AppStateType} from "./redux-store";
-import {ThunkAction} from "redux-thunk";
+import {FormAction, stopSubmit} from "redux-form";
+import {BaseThunkType} from "./redux-store";
 
 type ActionTypes = ReturnType<typeof setAuthUserData>
 
@@ -51,7 +50,8 @@ export const getAuthUserData = () =>  (dispatch: Dispatch<ActionTypes>) => {
       }
     });
 }
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
+//type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
+type ThunkType = BaseThunkType<ActionTypes | FormAction>
 
 export const login = (email: string, password: string, rememberMe: boolean): ThunkType => async (dispatch) => {
   authAPI.login(email, password, rememberMe)
@@ -60,7 +60,6 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
         dispatch(getAuthUserData())
       } else {
         const message = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'
-        // @ts-ignore
         dispatch(stopSubmit("login", {_error: message} ))
       }
     });
