@@ -1,6 +1,6 @@
 import {ActionsTypes} from "./store";
 
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SEND_MESSAGE = 'dialogs/SEND-MESSAGE';
 
 export type DialogsType = {
   id: number
@@ -39,7 +39,7 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     case SEND_MESSAGE: {
       let body = action.newMessageBody;
 
-      return  {
+      return {
         ...state,
         messages: [...state.messages, {id: 6, message: body}]
       }

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  follow, requesUsers,
+  follow, requestUsers,
   setCurrentPage,
   unfollow,
   UserType
@@ -45,7 +45,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
   }
 
   onPageChanged = (pageNumber: number) => {
-  //  this.props.setCurrentPage(pageNumber)
     this.props.getUsers(pageNumber, this.props.pageSize)
      ;
   }
@@ -67,17 +66,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
   }
 }
 
-// let mapStateToProps = (state: AppStateType): MapStatePropsType => {
-//   return {
-//     users: state.usersPage.users,
-//     pageSize: state.usersPage.pageSize,
-//     totalUsersCount: state.usersPage.totalUsersCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     followingInProgress: state.usersPage.followingInProgress
-//   }
-// }
-
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     users: getUsers(state),
@@ -91,5 +79,5 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export default compose<React.ComponentType>(
   withAuthRedirect,
-  connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers: requesUsers})
+  connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers: requestUsers})
 )(UsersContainer)

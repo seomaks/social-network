@@ -14,7 +14,7 @@ export type InitialStateType = {
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
-    case 'INITIALIZED_SUCCESS':
+    case 'app/INITIALIZED_SUCCESS':
       return {
         ...state,
         initialized: true
@@ -27,7 +27,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 export const initializedSuccess = () => {
   return {
-    type: 'INITIALIZED_SUCCESS'
+    type: 'app/INITIALIZED_SUCCESS'
   } as const
 };
 
