@@ -11,6 +11,7 @@ type PostDataType = {
 }
 
 const MyPosts = (props: PostsPropsType) => {
+  console.log('render')
   const postsElements = props.profilePage.posts.map(p => <Post
     likesCount={p.likesCount}
     message={p.message}
@@ -35,7 +36,6 @@ const MyPosts = (props: PostsPropsType) => {
   }
 
   let AddNewPostFormRedux = reduxForm<PostDataType>({form: "ProfileAddNewPostForm"})(AddNewPostForm)
-
   const onAddPost = (values: { newPostText: string }) => {
     props.addPost(values.newPostText)
   }
@@ -49,7 +49,6 @@ const MyPosts = (props: PostsPropsType) => {
       </div>
     </div>
   )
-}
-
+};
 
 export default MyPosts
