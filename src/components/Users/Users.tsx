@@ -5,7 +5,7 @@ import {User} from "./User";
 
 type PropsType = {
   onPageChanged: (pageNumber: number) => void
-  totalUsersCount: number
+  totalItemsCount: number
   pageSize: number
   currentPage: number
   users: Array<UserType>
@@ -17,10 +17,11 @@ type PropsType = {
 export let Users = (props: PropsType) => {
   return <div>
     <Paginator onPageChanged={props.onPageChanged}
-               totalUsersCount={props.totalUsersCount}
+               totalItemsCount={props.totalItemsCount}
                pageSize={props.pageSize}
-               currentPage={props.currentPage}/>
-   <div>
+               currentPage={props.currentPage}
+               portionSize={10}/>
+    <div>
       {props.users.map(u => <User user={u}
                                   key={u.id}
                                   followingInProgress={props.followingInProgress}
