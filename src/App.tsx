@@ -1,7 +1,7 @@
 import React  from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {HashRouter, Route, Switch} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -14,8 +14,6 @@ import {initializedApp} from "./redux/appReducer";
 import {AppStateType} from "./redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
-//import DialogsContainer from "./components/Dialogs/DialogsContainer";
-//import ProfileContainer from "./components/Profile/ProfileContainer";
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 
@@ -40,7 +38,7 @@ class App extends Component<PropsType> {
     }
 
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className='app-wrapper'>
           <HeaderContainer/>
           <Navbar/>
@@ -58,7 +56,7 @@ class App extends Component<PropsType> {
             </Switch>
           </div>
         </div>
-      </BrowserRouter>)
+      </HashRouter>)
   }
 }
 
