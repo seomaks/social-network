@@ -11,7 +11,6 @@ type PostDataType = {
 }
 
 const MyPosts = (props: PostsPropsType) => {
-  console.log('render')
   const postsElements = props.profilePage.posts.map(p => <Post
     likesCount={p.likesCount}
     message={p.message}
