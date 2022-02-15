@@ -1,7 +1,6 @@
 import React from 'react'
 import classes from './Post.module.css';
 import likeIcon from "../../../../assets/images/heart.png";
-import userPhoto from "../../../../assets/images/user.png";
 
 type PostType = {
   likesCount: number

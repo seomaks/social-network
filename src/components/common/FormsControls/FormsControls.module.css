@@ -13,3 +13,8 @@ border: solid red 2px;
     margin: 2px;
     color: red;
 }
+
+.main {
+    margin-left: 20px;
+    font-size: 20px;
+}

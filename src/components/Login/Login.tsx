@@ -10,6 +10,7 @@ import classes
   from "../../components/common/FormsControls/FormsControls.module.css";
 
 
+
 type FormDataType = {
   email: string
   password: string
@@ -60,8 +61,16 @@ const Login = (props: PropsType) => {
     return <Redirect to={"/profile"}/>
   }
 
-  return <div>
+  return <div className={classes.main}>
     <h1>Login</h1>
+    <div>
+      <span>Hi ✋</span>
+      <span>To test my site use:</span>
+      <br/>
+      <span><b>Email:</b> free@samuraijs.com</span>
+      <br/>
+      <span><b>Password:</b> free</span>
+    </div>
     <LoginReduxForm onSubmit={onSubmit}/>
   </div>
 }
