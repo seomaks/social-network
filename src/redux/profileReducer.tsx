@@ -16,12 +16,12 @@ type ContactsType = {
   youtube: string
   mainLink: string
 }
-type PhotosType = {
+export type PhotosType = {
   small: string
   large: string
 }
 export type ProfileType = {
-  userId: number
+  userId: number | undefined
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
@@ -44,6 +44,7 @@ export type ActionsTypes =
   ReturnType<typeof addPostAC>
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setStatus>
+  | ReturnType<typeof savePhotoSuccess>
 
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -58,7 +59,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
       return {
         ...state,
         posts: [...state.posts, newPost],
-        // newPostText: ""
       };
     }
     case "profile/SET_USER_PROFILE": {
@@ -73,6 +73,11 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         status: action.status
       };
     }
+    case "profile/SAVE_PHOTO_SUCCESS":
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos} as ProfileType
+      };
     default:
       return state;
   }
@@ -99,6 +104,13 @@ export const setStatus = (status: string) => {
   } as const
 }
 
+export const savePhotoSuccess = (photos: PhotosType) => {
+  return {
+    type: "profile/SAVE_PHOTO_SUCCESS",
+    photos
+  } as const
+}
+
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch<ActionsTypes>) => {
   const response = await usersAPI.getProfile(userId)
   dispatch(setUserProfile(response.data))
@@ -113,6 +125,13 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch<Action
   const response = await profileAPI.updateStatus(status)
   if (response.data.resultCode === 0) {
     dispatch(setStatus(status))
+  }
+}
+
+export const savePhoto = (file: File) => async (dispatch: Dispatch<ActionsTypes>) => {
+  const response = await profileAPI.savePhoto(file)
+  if (response.data.resultCode === 0) {
+    dispatch(savePhotoSuccess(response.data.data.photos))
   }
 }
 

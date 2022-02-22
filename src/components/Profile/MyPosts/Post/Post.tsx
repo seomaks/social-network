@@ -15,7 +15,7 @@ const Post = (props: PostType) => {
         alt=''/>
       {props.message}
       <div className={classes.icon}>
-        <img src={likeIcon}/>
+        <img src={likeIcon} alt={''}/>
         {props.likesCount}
       </div>
     </div>

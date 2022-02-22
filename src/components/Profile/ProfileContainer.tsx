@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
   getStatus,
-  getUserProfile,
+  getUserProfile, savePhoto,
   updateStatus,
 } from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
@@ -21,15 +21,15 @@ type MapDispatchPropsType = {
   getUserProfile: (userId: number) => void
   getStatus: (userId: number | string | null) => void
   updateStatus: (status: string) => void
+  savePhoto: (file: File) => void
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchPropsType
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
-  componentDidMount() {
+  refreshProfile() {
     let userId: number | null = +this.props.match.params.userId;
     if (!userId) {
-      //     userId = this.props.authorizedUserId!.toString()
       userId = this.props.authorizedUserId
       if (!userId) {
         this.props.history.push("/login");
@@ -44,12 +44,25 @@ class ProfileContainer extends React.Component<PropsType> {
     }
   }
 
+  componentDidMount() {
+    this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {
+    if (this.props.match.params.userId !== prevProps.match.params.userId) {
+      this.refreshProfile()
+    }
+  }
+
   render() {
     return (
       <div>
-        <Profile {...this.props} profile={this.props.profile}
+        <Profile {...this.props}
+                 isOwner={!this.props.match.params.userId}
+                 profile={this.props.profile}
                  status={this.props.status}
                  updateStatus={this.props.updateStatus}
+                 savePhoto={this.props.savePhoto}
                  isAuth={this.props.isAuth}/>
       </div>
     )
@@ -64,8 +77,7 @@ let mapStateToProps = (state: AppStateType) => ({
 })
 
 export default compose<React.ComponentType>(
-  connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+  connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}),
   withRouter,
-  // withAuthRedirect // login on the profile page
 )(ProfileContainer)
 

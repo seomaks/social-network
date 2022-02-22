@@ -1,23 +1,34 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import classes from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
 import {ProfileType} from "../../../redux/profileReducer";
 import ProfileStatus from "./ProfileStatus";
+import userPhoto from "../../../assets/images/user.png";
 
 type PropsType = {
   profile: ProfileType | null
   status: string
   updateStatus: (status: string) => void
+  savePhoto: (file: File) => void
+  isOwner: boolean
 }
 
 const ProfileInfo = (props: PropsType) => {
   if (!props.profile) {
     return <Preloader/>
   }
+
+  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      props.savePhoto(e.target.files[0])
+    }
+  }
+
   return (
     <div>
       <div className={classes.descriptionBlock}>
-        <img src={props.profile.photos.large} alt={""}/>
+        <img src={props.profile.photos.large || userPhoto} className={classes.mainPhoto} alt={""}/>
+        {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
         <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         <div>Full name: {props.profile.fullName}</div>
         <div>Looking for a job: {props.profile.lookingForAJob}</div>

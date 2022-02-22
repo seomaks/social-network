@@ -9,13 +9,15 @@ type PropsType = {
   profile: ProfileType | null
   status: string
   updateStatus: (status: string) => void
+  isOwner: boolean
+  savePhoto: (file: File) => void
 }
 
 const Profile = (props: PropsType) => {
   if (!props.isAuth) return <Redirect to={"/login"}/>
   return (
     <div>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+      <ProfileInfo isOwner={props.isOwner} savePhoto={props.savePhoto} profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
       <MyPostsContainer />
     </div>
   )
