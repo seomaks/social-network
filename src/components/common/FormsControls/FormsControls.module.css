@@ -18,3 +18,9 @@ border: solid red 2px;
     margin-left: 20px;
     font-size: 20px;
 }
+
+.formError {
+    padding: 5px;
+    border: 1px solid red;
+    color: red;
+}
