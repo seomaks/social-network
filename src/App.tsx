@@ -7,13 +7,13 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
 import {Component} from "react";
 import {connect} from "react-redux";
 import {initializedApp} from "./redux/appReducer";
 import {AppStateType} from "./redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
+import {Login} from "./components/Login/Login";
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 
