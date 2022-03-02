@@ -24,7 +24,6 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
       {captchaUrl && <img src={captchaUrl}/>}
       {captchaUrl && createField<LoginFormValuesTypeKeys>('Symbols from image', 'captcha', [required], Input, {})}
 
-
       {error && <div className={style.formSummaryError}>
         {error}
       </div>

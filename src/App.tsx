@@ -1,7 +1,7 @@
 import React  from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {HashRouter, Route, Switch} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -44,6 +44,7 @@ class App extends Component<PropsType> {
           <Navbar/>
           <div className='app-wrapper-content'>
             <Switch>
+              <Route exact path='/' component={() => <Redirect to = {'/profile'}/>}/>
               <Route path='/login' component={Login}/>
               <Route path='/profile/:userId?'
                      render={withSuspense(ProfileContainer)}/>
@@ -53,6 +54,8 @@ class App extends Component<PropsType> {
               <Route path='/music' component={Music}/>
               <Route path='/settings' component={Settings}/>
               <Route path='/users' component={UsersContainer}/>
+              <Route path='/404' component={() => <h1>404: PAGE NOT FOUND</h1>}/>
+              <Route path='*' component={() => <Redirect to="/404"/>}/>
             </Switch>
           </div>
         </div>
