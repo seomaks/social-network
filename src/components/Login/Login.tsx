@@ -8,6 +8,7 @@ import style from './../common/FormsControls/FormsControls.module.css'
 import {AppStateType} from '../../redux/redux-store'
 import {GetStringKeys} from "../Profile/ProfileInfo/ProfileDataForm";
 import {login} from "../../redux/authReducer";
+import classes from "./Login.module.css";
 
 type LoginFormOwnProps = {
   captchaUrl: string | null
@@ -58,8 +59,18 @@ export const Login: React.FC = () => {
     return <Redirect to={'/profile'}/>
   }
 
-  return <div>
+  return <div className={classes.loginForm}>
     <h1>Login</h1>
+      <p>To log in get registered
+        <a href={'https://social-network.samuraijs.com/'}
+           target={'_blank'}> here
+        </a>
+      </p>
+      <p>or use common test account credentials:</p>
+    <div>
+    <p><b>Email</b>: free@samuraijs.com</p>
+    <p><b>Password</b>: free</p>
+    </div>
     <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
   </div>
 }
